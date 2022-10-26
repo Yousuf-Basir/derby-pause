@@ -6,7 +6,7 @@ const NUMBER_OF_SLOTS: number = 4;
 const MOCK_DATA = [
     {
         primaryVideo: 'https://firebasestorage.googleapis.com/v0/b/tempproject-38790.appspot.com/o/derby-pause%2Fslot1%2Fslot-1-primary.webm?alt=media&token=0f8480c4-5bf3-4bf3-b604-2b8e69d8541c',
-        secondaryVideo: 'https://firebasestorage.googleapis.com/v0/b/tempproject-38790.appspot.com/o/derby-pause%2Fslot1%2Fslot-1-secondary.webm?alt=media&token=51d74f49-dcaa-4d4c-8517-1b55efc5188e'
+        secondaryVideo: ''
     },
     {
         primaryVideo: 'https://firebasestorage.googleapis.com/v0/b/tempproject-38790.appspot.com/o/derby-pause%2Fslot2%2Fslot-2-primary.webm?alt=media&token=e540ebbd-d77a-4688-a1c6-9798590cc482',
