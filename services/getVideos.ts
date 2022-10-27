@@ -16,6 +16,10 @@ const MOCK_DATA = [
       primaryVideo: 'https://firebasestorage.googleapis.com/v0/b/tempproject-38790.appspot.com/o/derby-pause%2Fslot2%2Fslot2-primary.webm?alt=media&token=7b59ef24-c0a2-4d0f-8455-5c7d00b8cd81',
       secondaryVideo: 'https://firebasestorage.googleapis.com/v0/b/tempproject-38790.appspot.com/o/derby-pause%2Fslot2%2Fslot2-secondary.webm?alt=media&token=fb38f0f7-c163-4e6d-8b7e-bdca1c2d4325'
     },
+    {
+      primaryVideo: 'https://firebasestorage.googleapis.com/v0/b/tempproject-38790.appspot.com/o/derby-pause%2Fslot3%2Fslot3-primary.webm?alt=media&token=336ea1e9-552d-40a3-a119-3c77e75f7c0b',
+      secondaryVideo: 'https://firebasestorage.googleapis.com/v0/b/tempproject-38790.appspot.com/o/derby-pause%2Fslot3%2Fslot3-secondary.webm?alt=media&token=8e4f83b7-758b-41db-9a47-267f563857bd'
+    }
   ]
   
 
@@ -31,22 +35,22 @@ const getVideoLink = async (fileRef: string): Promise<string> => {
 }
 
 export const getVideoList = async (): Promise<Slot[]> => {
-    // return MOCK_DATA;
+    return MOCK_DATA;
 
-    let videoList: Slot[] = [];
+    // let videoList: Slot[] = [];
 
-    try {
-        for (var i = 0; i < NUMBER_OF_SLOTS; i++) {
-            const primaryVideoRef = `derby-pause/slot${i}/slot${i}-primary.webm`;
-            const secondaryVideoRef = `derby-pause/slot${i}/slot${i}-secondary.webm`;
-            videoList.push({
-                primaryVideo: await getVideoLink(primaryVideoRef),
-                secondaryVideo: await getVideoLink(secondaryVideoRef)
-            })
-        }
-    } catch (error) {
-        console.log(error);
-    }
+    // try {
+    //     for (var i = 0; i < NUMBER_OF_SLOTS; i++) {
+    //         const primaryVideoRef = `derby-pause/slot${i}/slot${i}-primary.webm`;
+    //         const secondaryVideoRef = `derby-pause/slot${i}/slot${i}-secondary.webm`;
+    //         videoList.push({
+    //             primaryVideo: await getVideoLink(primaryVideoRef),
+    //             secondaryVideo: await getVideoLink(secondaryVideoRef)
+    //         })
+    //     }
+    // } catch (error) {
+    //     console.log(error);
+    // }
 
-    return videoList;
+    // return videoList;
 }
