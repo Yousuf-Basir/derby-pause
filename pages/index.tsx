@@ -1,3 +1,4 @@
+import { Box, Button, Flex } from '@chakra-ui/react'
 import { GetServerSideProps } from 'next'
 import { useEffect, useRef, useState } from 'react'
 import { getVideoList } from '../services/getVideos'
@@ -14,25 +15,28 @@ export default function Home(props: Props) {
   const [slotIndex, setSlotIndex] = useState(0);
 
   const updateSlotIndex = () => {
-    if (slotIndex < videoList.length) {
+    if (slotIndex+1 < videoList.length) {
       setSlotIndex((prevValue) => (prevValue + 1));
     } else {
-      setSlotIndex(0);
+      if(!isPauseDown) {
+        setSlotIndex(0);
+      }
     }
   }
 
   useEffect(() => {
+    console.log("slotIndex", slotIndex)
     const primaryVideoPlayer: HTMLVideoElement = document.getElementById(`slot${slotIndex}-primary`) as HTMLVideoElement;
     const secondaryVideoPlayer: HTMLVideoElement = document.getElementById(`slot${slotIndex}-secondary`) as HTMLVideoElement;
     if (isPauseDown) {
-      secondaryVideoPlayer.play();
+      secondaryVideoPlayer?.play();
     } else {
-      primaryVideoPlayer.play();
+      primaryVideoPlayer?.play();
     }
   }, [slotIndex])
 
   const handlePauseDown = () => {
-    if (!videoList[slotIndex].secondaryVideo) {
+    if (!videoList[slotIndex]?.secondaryVideo) {
       return;
     }
 
@@ -44,10 +48,10 @@ export default function Home(props: Props) {
   }
 
   const handlePauseUp = () => {
-    if (!videoList[slotIndex].secondaryVideo) {
+    if (!videoList[slotIndex]?.secondaryVideo) {
       return;
     }
-    
+
     setIsPauseDown(false);
     const primaryVideoPlayer: HTMLVideoElement = document.getElementById(`slot${slotIndex}-primary`) as HTMLVideoElement;
     const secondaryVideoPlayer: HTMLVideoElement = document.getElementById(`slot${slotIndex}-secondary`) as HTMLVideoElement;
@@ -56,45 +60,65 @@ export default function Home(props: Props) {
   }
 
   return (
-    <div className='homePageRoot'>
-      <div className='videoContainer'>
-        {
-          videoList.map((slot, key) => (
+    <Flex
+      flexDir='column'
+      alignItems='center'
+      height='100vh'
+      overflow='hidden'
+      bg='blue.200'
+    >
+      {
+        videoList.map((slot, key) => (
+          <Box
+            flex='1'
+            display={!isPauseDown &&  slotIndex == key ? 'block' : 'none'}>
             <video
               id={`slot${key}-primary`}
-              className={!isPauseDown && slotIndex == key ? 'show' : 'hide'}
               onEnded={() => updateSlotIndex()}
               key={key}
               muted
               autoPlay
+              style={{ height: '100%' }}
             >
               <source src={slot.primaryVideo} />
             </video>
-          ))
-        }
+          </Box>
+        ))
+      }
 
-        {
-          videoList.map((slot, key) => (
+      {
+        videoList.map((slot, key) => (
+          <Box
+            flex='1'
+            alignItems='center'
+            justifyContent='center'
+            display={isPauseDown && slotIndex == key ? 'block' : 'none'}>
             <video
               id={`slot${key}-secondary`}
-              className={isPauseDown && slotIndex == key ? 'show' : 'hide'}
               onEnded={() => updateSlotIndex()}
               key={key}
               muted
               autoPlay
+              style={{ height: '100%' }}
             >
               <source src={slot.secondaryVideo} />
             </video>
-          ))
-        }
-      </div>
+          </Box>
+        ))
+      }
 
-      <button
+      <Button
+        height='120px'
+        maxW='300px'
         className='derbyPauseButton'
         onMouseDown={handlePauseDown}
         onMouseUp={handlePauseUp}
-      >The pause button</button>
-    </div>
+        onTouchStart={handlePauseDown}
+        onTouchEnd={handlePauseUp}
+      >
+        The pause button
+      </Button>
+    </Flex>
   )
 }
 
