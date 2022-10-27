@@ -15,10 +15,10 @@ export default function Home(props: Props) {
   const [slotIndex, setSlotIndex] = useState(0);
 
   const updateSlotIndex = () => {
-    if (slotIndex+1 < videoList.length) {
+    if (slotIndex + 1 < videoList.length) {
       setSlotIndex((prevValue) => (prevValue + 1));
     } else {
-      if(!isPauseDown) {
+      if (!isPauseDown) {
         setSlotIndex(0);
       }
     }
@@ -70,12 +70,12 @@ export default function Home(props: Props) {
       {
         videoList.map((slot, key) => (
           <Box
+            key={key}
             flex='1'
-            display={!isPauseDown &&  slotIndex == key ? 'block' : 'none'}>
+            display={!isPauseDown && slotIndex == key ? 'block' : 'none'}>
             <video
               id={`slot${key}-primary`}
               onEnded={() => updateSlotIndex()}
-              key={key}
               muted
               autoPlay
               style={{ height: '100%' }}
@@ -89,6 +89,7 @@ export default function Home(props: Props) {
       {
         videoList.map((slot, key) => (
           <Box
+            key={key}
             flex='1'
             alignItems='center'
             justifyContent='center'
@@ -96,7 +97,6 @@ export default function Home(props: Props) {
             <video
               id={`slot${key}-secondary`}
               onEnded={() => updateSlotIndex()}
-              key={key}
               muted
               autoPlay
               style={{ height: '100%' }}
